@@ -36,35 +36,52 @@ async def get_random_item(maximum: int) -> dict[str, int]:
 
 def get_discovery():
 
-    dictionary1 = {'genres': ['Action', 'Animation' ], 'rating': 9,  'duration': 90,'release_date': '2020-01-01', 'requested': 6}
+    dictionary1 = {'genres': ['Action', 'Animation' ], 'rating': 5,  'duration': 120,'release_date': '2020-01-01','providers':['Netflix', 'Disney+'], 'requested': 6}
     genres = dictionary1['genres']
     rating = dictionary1['rating']
     duration = dictionary1["duration"]
     release_date = dictionary1["release_date"]
     requested = dictionary1['requested']
-    
+    providers = dictionary1['providers']
     genre_dict = {
     "Action": 28,
-    "Abenteuer": 12,
+    "Adventure": 12,
     "Animation": 16,
-    "Komödie": 35,
-    "Krimi": 80,
-    "Dokumentarfilm": 99,
+    "Comedy": 35,
+    "Crime": 80,
+    "Documentary": 99,
     "Drama": 18,
-    "Familie": 10751,
+    "Family": 10751,
     "Fantasy": 14,
-    "Historie": 36,
+    "History": 36,
     "Horror": 27,
-    "Musik": 10402,
+    "Music": 10402,
     "Mystery": 9648,
-    "Liebesfilm": 10749,
+    "Romance": 10749,
     "Science Fiction": 878,
     "TV-Film": 10770,
     "Thriller": 53,
-    "Kriegsfilm": 10752,
+    "War": 10752,
     "Western": 37
 }
 
+    watch_providers = {
+    "Netflix": 8,
+    "Amazon Prime Video": 9,
+    "Disney+": 337,
+    "HBO Max": 384,
+    "Hulu": 15,
+    "Apple TV+": 350,
+    "Peacock": 386,
+    "Paramount+": 531,
+    "YouTube": 327,
+    "Google Play Movies": 3,
+    "Vudu": 7,
+    "Tubi": 383,
+    "FuboTV": 356,
+    "Rakuten TV": 387,
+    "Sling TV": 356
+}
 
     genre_string = '&with_genres='
     for genre in genres:
@@ -74,7 +91,7 @@ def get_discovery():
 
         
 
-    url = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc"
+    url = "https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=true&language=en-US&page=1&sort_by=popularity.desc"
     url += genre_string[:-1]
     if rating:
         url = url + '&vote_average.gte=' + str(rating)
@@ -83,6 +100,12 @@ def get_discovery():
     if release_date:
         url = url + 'primary_release_date.lte' + release_date
 
+    provider_string = '&with_watch_providers='
+    for provider in providers:
+        provider_string += str(watch_providers[provider]) + '|'
+    
+    url = url + provider_string[:-1] + '&watch_region=US'
+    
     #url = url + 'vote_count.gte=100'
     headers = {
         "accept": "application/json",
@@ -92,7 +115,7 @@ def get_discovery():
     response = requests.get(url, headers=headers)
     json_store = json.loads(response.text)
     
-    num_items_to_select = random.randint(1, requested)
+    num_items_to_select = requested
 
 # 2. Shuffle the original list (create a copy to avoid modifying the original)
     shuffled_list = json_store['results'][:] # Create a shallow copy
@@ -101,7 +124,7 @@ def get_discovery():
     # 3. Select the desired number of items
     random_selection = shuffled_list[:num_items_to_select]  
     print(random_selection)
-    return json_store['results']
+    return random_selection
 
 
 
