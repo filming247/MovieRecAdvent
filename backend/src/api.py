@@ -57,17 +57,41 @@ def get_discovery():
         "War"       : 10752,
         "Western"   : 37
     }
+
+    watch_providers = {
+        "Netflix"   : 8,
+        "Amazon Prime Video": 9,
+        "Disney+"   : 337,
+        "HBO Max"   : 384,
+        "Hulu"      : 15,
+        "Apple TV+" : 350,
+        "Peacock"   : 386,
+        "Paramount+": 531,
+        "YouTube"   : 327,
+        "Google Play Movies": 3,
+        "Vudu"      : 7,
+        "Tubi"      : 383,
+        "FuboTV"    : 356,
+        "Rakuten TV": 387,
+        "Sling TV"  : 356
+    }
     
-    dictionary1 = {'with_genres': ['Action', 'Animation'],
-                   'vote_average.gte': 9,
-                   'with_runtime.lte': 90,
-                   'release_date': '2020-01-01',
-                   'primary_release_date.lte': 6}
+    dictionary1 = {'with_genres'            : ['Action', 'Animation'],
+                   'vote_average.gte'       : 9,
+                   'with_runtime.lte'       : 90,
+                   'release_date'           : '2020-01-01',
+                   'primary_release_date.lte': 6,
+                   'with_watch_providers'   : [],
+                   'num_results'            : 10}
     
     dictionary1['with_genres'] = str([genre_dict[x] for x in dictionary1['with_genres']])[1:-1].replace(' ', '')
+    dictionary1['with_watch_providers'] = str([watch_providers[x] for x in dictionary1['with_watch_providers']])[1:-1].replace(', ', '|')
+    num_results = dictionary1["num_results"]
+    del dictionary1["num_results"]
 
     url = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&" \
             + urllib.parse.urlencode(dictionary1, safe=',')
+    
 
     headers = {
         "accept": "application/json",
@@ -76,17 +100,15 @@ def get_discovery():
 
     response = requests.get(url, headers=headers)
     json_store = json.loads(response.text)
-    
-    num_items_to_select = random.randint(1, 5)
 
     # 2. Shuffle the original list (create a copy to avoid modifying the original)
     shuffled_list = json_store['results'][:] # Create a shallow copy
     random.shuffle(shuffled_list)
 
     # 3. Select the desired number of items
-    random_selection = shuffled_list[:num_items_to_select]  
-    print(random_selection)
-    return json_store['results']
+    random_selection = shuffled_list[:num_results]
+    print([x["title"] for x in random_selection])
+    return random_selection
 
 
 
