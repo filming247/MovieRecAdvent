@@ -81,7 +81,7 @@ def get_discovery():
                    'with_runtime.lte'       : 90,
                    'release_date'           : '2020-01-01',
                    'primary_release_date.lte': 6,
-                   'with_watch_providers'   : [],
+                   'with_watch_providers'   : ['Netflix', 'Disney+'],
                    'num_results'            : 10}
     
     dictionary1['with_genres'] = str([genre_dict[x] for x in dictionary1['with_genres']])[1:-1].replace(' ', '')
@@ -90,8 +90,8 @@ def get_discovery():
     del dictionary1["num_results"]
 
     url = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&" \
-            + urllib.parse.urlencode(dictionary1, safe=',')
-    
+            + urllib.parse.urlencode(dictionary1)
+    print(url)
 
     headers = {
         "accept": "application/json",
