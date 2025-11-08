@@ -7,6 +7,7 @@ $ fastapi dev src/api.py
 import random
 import requests
 from fastapi import FastAPI
+import urllib
 import json
 
 # The app which manages all of the API routes
@@ -33,8 +34,8 @@ async def get_random_item(maximum: int) -> dict[str, int]:
 
 
 
-def get_discovery():
-    url = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc"
+def get_discovery(params: dict) -> dict[str,str]:
+    url = f'https://api.themoviedb.org/3/discover/movie?{urllib.parse.urlencode(params)}'
 
     headers = {
         "accept": "application/json",
@@ -48,11 +49,10 @@ def get_discovery():
 
 
 
-
 @app.post("/submit")
-async def hello() -> dict[str, str]:
+async def hello(params: dict) -> dict[str, str]:
     """Get hello message."""
-    get_discovery()
+    get_discovery(params)
 
 
 
