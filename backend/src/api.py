@@ -91,7 +91,6 @@ def get_discovery():
 
     url = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&" \
             + urllib.parse.urlencode(dictionary1)
-    print(url)
 
     headers = {
         "accept": "application/json",
@@ -101,11 +100,11 @@ def get_discovery():
     response = requests.get(url, headers=headers)
     json_store = json.loads(response.text)
 
-    # 2. Shuffle the original list (create a copy to avoid modifying the original)
+    # Shuffle the original list (create a copy to avoid modifying the original)
     shuffled_list = json_store['results'][:] # Create a shallow copy
     random.shuffle(shuffled_list)
 
-    # 3. Select the desired number of items
+    # Select the desired number of items
     random_selection = shuffled_list[:num_results]
     print([x["title"] for x in random_selection])
     return random_selection
@@ -116,8 +115,4 @@ def get_discovery():
 @app.post("/submit")
 async def hello() -> dict[str, str]:
     """Get hello message."""
-    get_discovery()
-
-
-
-    return {"message": "Hello from FastAPI"}
+    return {get_discovery()}
