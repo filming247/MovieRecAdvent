@@ -95,7 +95,7 @@ function Advent() {
         <div className="background">
             <div className="allTix">
                 <div className={  view ? "ticket-display" : "ticket-none"}>
-                    {movie_dict != null ? <MovieCard movie_info={movie_dict[display]}></MovieCard> : null}
+                    {movie_dict != null ? <MovieCard movie_info={movie_dict[display]} setView={setView}></MovieCard> : null}
                 </div>
                 <div className="image1-box" >
                     <img src={ticketLogo} className="ticket-box" alt="Ticket logo" onClick={()=>displaycard(0)} />

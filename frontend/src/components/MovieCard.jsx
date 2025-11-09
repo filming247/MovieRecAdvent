@@ -1,6 +1,6 @@
 import "../Pages/Styles/MovieCard.css";
 
-function MovieCard({movie_info}) {
+function MovieCard({movie_info, setView}) {
     return (
         <div className="display"> 
             <div className="title">
@@ -15,6 +15,9 @@ function MovieCard({movie_info}) {
                 <img src={"https://image.tmdb.org/t/p/original/" + movie_info['poster_path']} className="img-box" alt="Image logo"/>
             </div>
             
+            <div className="close" onClick={()=>setView(false)}>
+                Close
+            </div>
             
             {movie_info['overview']}
         </div>
