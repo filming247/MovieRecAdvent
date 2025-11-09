@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
 import React from 'react';
 
+
 async function getMovieData(genre, runtime, release, providers, num_res) {
     const body = {'with_genres': genre, 
         'with_runtime.lte': runtime,
@@ -21,7 +22,27 @@ async function getMovieData(genre, runtime, release, providers, num_res) {
 }
 
 function Advent() {
+<<<<<<< HEAD
     const [movie_dict, setMovieDict] = useState(null)
+=======
+<<<<<<< Updated upstream
+=======
+    const [movie_dict, setMovieDict] = useState(null)
+
+    const [comedyInfo, setComedyInfo] = useState(false)
+    const [mysteryInfo, setMysteryInfo] = useState(false)
+    const [actionInfo, setActionInfo] = useState(false)
+    const [docuInfo, setDocuInfo] = useState(false)
+    const [romInfo, setRomInfo] = useState(false)
+    const [netInfo, setNetInfo] = useState(false)
+    const [HBInfo, setHBInfo] = useState(false)
+    const [parInfo, setParInfo] = useState(false)
+    const [pInfo, setPInfo] = useState(false)
+    const [fubInfo, setFubInfo] = useState(false)
+    const [display, setDisplay] = useState(0)
+    const [view, setView] = useState(false)
+
+>>>>>>> backend-justin
     useEffect(()=> {
         
         const x = async () => {
@@ -64,6 +85,7 @@ function Advent() {
 
         x()
         
+<<<<<<< HEAD
     }, [])
 
     const [comedyInfo, setComedyInfo] = useState(false)
@@ -78,6 +100,10 @@ function Advent() {
     const [fubInfo, setFubInfo] = useState(false)
     const [display, setDisplay] = useState(0)
     const [view, setView] = useState(false)
+=======
+    }, [comedyInfo, mysteryInfo, actionInfo, docuInfo, romInfo, netInfo, HBInfo, parInfo, pInfo, fubInfo])
+
+>>>>>>> backend-justin
 
 
     function displaycard(x){
@@ -86,6 +112,10 @@ function Advent() {
         setView(true)
 
     }
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> backend-justin
     return (
         <div className="background">
             <div className="allTix">
