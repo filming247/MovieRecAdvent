@@ -97,6 +97,9 @@ async def movie_results(request: Request) -> list:
     dictionary['with_watch_providers'] = str([watch_providers[x] for x in dictionary['with_watch_providers']])[1:-1].replace(', ', '|')
     num_results = dictionary["num_results"]
     del dictionary["num_results"]
+    for (key, value) in dictionary.items():
+        if value is None:
+            del dictionary[key]
 
     url = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&" \
             + urllib.parse.urlencode(dictionary)
@@ -112,8 +115,40 @@ async def movie_results(request: Request) -> list:
     # Shuffle the original list (create a copy to avoid modifying the original)
     shuffled_list = json_store['results'][:] # Create a shallow copy
     random.shuffle(shuffled_list)
-
+    
     # Select the desired number of items
     random_selection = shuffled_list[:num_results]
 
-    return random_selection
+    for selection in random_selection:
+        movie_id = selection['id']
+        cert_url = f'https://api.themoviedb.org/3/movie/{movie_id}/release_dates'
+        cert_response = requests.get(cert_url, headers=headers)
+        cert_store = json.loads(cert_response.text)
+        cert_results = cert_store['results']
+        cert_dict = None
+        for release in reversed(cert_results):
+            if release['iso_3166_1'] == 'US':
+                cert_dict = release
+                break
+        cert = None
+        if cert_dict is not None:
+            for release in cert_dict['release_dates']:
+                if release['certification'] != '':
+                    cert = release['certification']
+                    break
+        if cert is not None:
+            selection['certification'] = cert
+        else:
+            selection['certification'] = 'Not rated in the US'
+
+    
+    desired_keys = {'title', 'overview', 'genre_ids', 'poster_path', 'certification'}
+    filtered_selection = []
+    for old_dict in random_selection:
+        new_dict = dict()
+        for key, value in old_dict.items():
+            if key in desired_keys:
+                new_dict[key] = value
+        filtered_selection.append(new_dict)
+
+    return filtered_selection
