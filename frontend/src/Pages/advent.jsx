@@ -51,6 +51,9 @@ function Advent() {
             if (parInfo) {
                 platform.push("Paramount+")
             }
+            if (pInfo) {
+                platform.push("Peacock");
+            }
             if (fubInfo) {
                 platform.push("FuboTV");
             }
