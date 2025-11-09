@@ -31,7 +31,9 @@ const handleSubmit = async (e) => {
                    "with_watch_providers"   : ["Netflix", "Disney+"],\
                    "num_results"            : 10}'})
     const data = await response.json()
-
+	for (let i = 0; i < 10; i++) {
+		console.log(data[i]["title"] + "|" + data[i]["overview"] + "|" + data[i]["genre_ids"] +  "|" + "https://image.tmdb.org/t/p/original/"+data[i]["poster_path"] + "|" + data[i]["certification"])
+	}
 
 }
 function Submit(){
