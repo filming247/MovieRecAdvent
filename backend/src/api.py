@@ -119,27 +119,27 @@ async def movie_results(request: Request) -> list:
     # Select the desired number of items
     random_selection = shuffled_list[:num_results]
 
-    for selection in random_selection:
-        movie_id = selection['id']
-        cert_url = f'https://api.themoviedb.org/3/movie/{movie_id}/release_dates'
-        cert_response = requests.get(cert_url, headers=headers)
-        cert_store = json.loads(cert_response.text)
-        cert_results = cert_store['results']
-        cert_dict = None
-        for release in reversed(cert_results):
-            if release['iso_3166_1'] == 'US':
-                cert_dict = release
-                break
-        cert = None
-        if cert_dict is not None:
-            for release in cert_dict['release_dates']:
-                if release['certification'] != '':
-                    cert = release['certification']
-                    break
-        if cert is not None:
-            selection['certification'] = cert
-        else:
-            selection['certification'] = 'Not rated in the US'
+    # for selection in random_selection:
+    #     movie_id = selection['id']
+    #     cert_url = f'https://api.themoviedb.org/3/movie/{movie_id}/release_dates'
+    #     cert_response = requests.get(cert_url, headers=headers)
+    #     cert_store = json.loads(cert_response.text)
+    #     cert_results = cert_store['results']
+    #     cert_dict = None
+    #     for release in reversed(cert_results):
+    #         if release['iso_3166_1'] == 'US':
+    #             cert_dict = release
+    #             break
+    #     cert = None
+    #     if cert_dict is not None:
+    #         for release in cert_dict['release_dates']:
+    #             if release['certification'] != '':
+    #                 cert = release['certification']
+    #                 break
+    #     if cert is not None:
+    #         selection['certification'] = cert
+    #     else:
+    #         selection['certification'] = 'Not rated in the US'
 
     
     # desired_keys = {'title', 'overview', 'genre_ids', 'poster_path', 'certification'}
