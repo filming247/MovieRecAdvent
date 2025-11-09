@@ -24,8 +24,12 @@ function App() {
 	);
 }
 const handleSubmit = async (e) => {
-	e.preventDefault()
-	const response = await fetch('/api/submit', {method: "POST"})
+	e.preventDefault() 
+	const response = await fetch('/api/submit', {method: "POST", body: '{"with_genres"            : ["Action", "Animation"],\
+                   "with_runtime.lte"       : 90,\
+                   "primary_release_date"   : "2020-01-01",\
+                   "with_watch_providers"   : ["Netflix", "Disney+"],\
+                   "num_results"            : 10}'})
     const data = await response.json()
 
 
