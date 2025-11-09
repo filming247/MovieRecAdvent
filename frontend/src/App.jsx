@@ -18,6 +18,8 @@ function App() {
 
 	return (
 		<>
+			<h1>Sign In!</h1>
+			<input type="text" id="myTextBox" name="myTextBox" placeholder="Enter text here"></input>
 			<div>
 				<a href="https://vitejs.dev" target="_blank" rel="noreferrer">
 					<img src={viteLogo} className="logo" alt="Vite logo" />
@@ -25,6 +27,11 @@ function App() {
 				<a href="https://react.dev" target="_blank" rel="noreferrer">
 					<img src={reactLogo} className="logo react" alt="React logo" />
 				</a>
+			</div>
+			<div className="test">
+				<li>Item one</li>
+				<li class="special">Item two</li>
+				<li>Item <em>three</em></li>
 			</div>
 			<h1>Vite + React</h1>
 			<div className="card">

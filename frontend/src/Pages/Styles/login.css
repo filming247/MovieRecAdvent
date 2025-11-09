@@ -1,0 +1,48 @@
+#root{
+  padding: 0px;
+  margin: 0px;
+  background-color: #712417;
+}
+
+
+.background {
+  background-color: #712417;
+  min-height: 100vh;   /* full screen height */
+  width: 100vw;         /* full width */
+  display:flex;
+  justify-content: center;
+  align-items: center;
+} 
+
+.login-container {
+  background-color: #f0e7b3;
+  width: 500px;
+  height: 500px;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} 
+
+.title {
+  color: #231F20;
+} 
+
+.button-container {
+  width: 200px;
+  height: 200px;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 50px;
+} 
+
+
+.button1:hover {
+	filter: drop-shadow(0 0 2em black);
+}
+
+.button2:hover {
+	filter: drop-shadow(0 0 2em black);
+}

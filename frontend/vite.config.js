@@ -11,6 +11,7 @@ export default defineConfig({
 		},
 	},
 	server: {
+
 		proxy: {
 			/*
 			This item adds what's known as a proxy from the frontend development server
