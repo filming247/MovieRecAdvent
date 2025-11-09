@@ -43,3 +43,10 @@
     object-fit: cover;
 }
 
+.ticket-display {
+  position: absolute;
+  
+}
+.ticket-none {
+  display: none;
+}

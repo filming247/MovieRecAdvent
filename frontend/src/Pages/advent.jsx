@@ -1,6 +1,7 @@
 import "./Styles/advent.css";
 import ticketLogo from "../assets/ticket.svg";
 import { useEffect, useState } from "react";
+import MovieCard from "../components/MovieCard";
 
 async function getMovieData(genre, runtime, release, providers, num_res) {
     const body = {'with_genres': genre, 
@@ -31,11 +32,29 @@ function Advent() {
         x()
         
     }, [])
+function handleDisplay(x){
+
+   
+
+}
+    const [display, setDisplay] = useState(0)
+    const [view, setView] = useState(false)
+
+
+    function displaycard(x){
+
+        setDisplay(x)
+        setView(true)
+
+    }
     return (
         <div className="background">
-            <div className="image1-box">
-                <img src={ticketLogo} className="ticket-box" alt="Ticket logo" />
-                <img src={ticketLogo} className="ticket-box" alt="Ticket logo" />
+            <div className={  view ? "ticket-display" : "ticket-none"}>
+                {movie_dict != null ? <MovieCard movie_info={movie_dict[display]}></MovieCard> : null}
+            </div>
+            <div className="image1-box" >
+                <img src={ticketLogo} className="ticket-box" alt="Ticket logo" onClick={()=>displaycard(0)} />
+                <img src={ticketLogo} className="ticket-box" alt="Ticket logo"  onClick={()=>displaycard(1)}/>
             </div>
             <div className="showing-box"> 
                 <div className="show">
@@ -43,8 +62,8 @@ function Advent() {
                 </div>
             </div>
             <div className="image1-box">
-                <img src={ticketLogo} className="ticket-box" alt="Ticket logo" />
-                <img src={ticketLogo} className="ticket-box" alt="Ticket logo" />
+                <img src={ticketLogo} className="ticket-box" alt="Ticket logo"  onClick={()=>displaycard(2)} />
+                <img src={ticketLogo} className="ticket-box" alt="Ticket logo"  onClick={()=>displaycard(3)} />
             </div>
         </div>
     )
