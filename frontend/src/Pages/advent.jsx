@@ -36,7 +36,7 @@ function Advent() {
                 genre.push("Action");
             }
             if (docuInfo) {
-                genre.push("Docu");
+                genre.push("Documentary");
             }
             if (romInfo) {
                 genre.push("Romance");
