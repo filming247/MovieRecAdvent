@@ -25,7 +25,36 @@ function Advent() {
     useEffect(()=> {
         
         const x = async () => {
-            const data = await getMovieData(["Mystery"], 120, "2020-01-01", ["Netflix"], 5)
+            let genre = []
+            if (comedyInfo) {
+                genre.push("Comedy");
+            }
+            if (mysteryInfo) {
+                genre.push("Mystery");
+            }
+            if (actionInfo) {
+                genre.push("Action");
+            }
+            if (docuInfo) {
+                genre.push("Docu");
+            }
+            if (romInfo) {
+                genre.push("Romance");
+            }
+            let platform = [];
+            if (netInfo) {
+                platform.push("Netflix");
+            }
+            if (HBInfo) {
+                platform.push("HBO Max");
+            }
+            if (parInfo) {
+                platform.push("Paramount+")
+            }
+            if (fubInfo) {
+                platform.push("FuboTV");
+            }
+            const data = await getMovieData(genre, 120, "2020-01-01", platform, 5)
             //console.log(data)
             setMovieDict(data)
         }
@@ -33,11 +62,17 @@ function Advent() {
         x()
         
     }, [])
-function handleDisplay(x){
 
-   
-
-}
+    const [comedyInfo, setComedyInfo] = useState(false)
+    const [mysteryInfo, setMysteryInfo] = useState(false)
+    const [actionInfo, setActionInfo] = useState(false)
+    const [docuInfo, setDocuInfo] = useState(false)
+    const [romInfo, setRomInfo] = useState(false)
+    const [netInfo, setNetInfo] = useState(false)
+    const [HBInfo, setHBInfo] = useState(false)
+    const [parInfo, setParInfo] = useState(false)
+    const [pInfo, setPInfo] = useState(false)
+    const [fubInfo, setFubInfo] = useState(false)
     const [display, setDisplay] = useState(0)
     const [view, setView] = useState(false)
 
@@ -73,53 +108,53 @@ function handleDisplay(x){
                 <h3 className="sidebar-title">Filters</h3>
 
                 <label className="sidebar-option" htmlFor="comedy-filter">
-                    <input type="checkbox" id="comedy-filter" />
+                    <input type="checkbox" value={comedyInfo} onChange={(e)=>{setComedyInfo(e.target.checked)}} id="comedy-filter" />
                     Comedy
                 </label>
 
                 <label className="sidebar-option" htmlFor="mystery-filter">
-                    <input type="checkbox" id="mystery-filter" />
+                    <input type="checkbox" value={mysteryInfo} onChange={(e)=>{setMysteryInfo(e.target.checked)}} id="mystery-filter" />
                     Mystery
                 </label>
 
                 <label className="action-option" htmlFor="action-filter">
-                    <input type="checkbox" id="action-filter" />
+                    <input type="checkbox" value={actionInfo} onChange={(e)=>{setActionInfo(e.target.checked)}} id="action-filter" />
                     Action
                 </label>
 
                 <label className="docu-option" htmlFor="docu-filter">
-                    <input type="checkbox" id="docu-filter" />
+                    <input type="checkbox" value={docuInfo} onChange={(e)=>{setDocuInfo(e.target.checked)}} id="docu-filter" />
                     Documentary
                 </label>
 
                 <label className="rom-option" htmlFor="rom-filter">
-                    <input type="checkbox" id="rom-filter" />
+                    <input type="checkbox" value={romInfo} onChange={(e)=>{setRomInfo(e.target.checked)}} id="rom-filter" />
                     Romance
                 </label>
 
 
                 <label className="net-option" htmlFor="net-filter">
-                    <input type="checkbox" id="net-filter" />
+                    <input type="checkbox" value={netInfo} onChange={(e)=>{setNetInfo(e.target.checked)}} id="net-filter" />
                     Netflix
                 </label>
 
                 <label className="hb-option" htmlFor="hb-filter">
-                    <input type="checkbox" id="hb-filter" />
+                    <input type="checkbox" value={HBInfo} onChange={(e)=>{setHBInfo(e.target.checked)}} id="hb-filter" />
                     HBO Max
                 </label>
 
                 <label className="par-option" htmlFor="par-filter">
-                    <input type="checkbox" id="par-filter" />
+                    <input type="checkbox" value={parInfo} onChange={(e)=>{setParInfo(e.target.checked)}} id="par-filter" />
                     Paramount Plus
                 </label>
 
                 <label className="p-option" htmlFor="p-filter">
-                    <input type="checkbox" id="p-filter" />
+                    <input type="checkbox" value={pInfo} onChange={(e)=>{setPInfo(e.target.checked)}} id="p-filter" />
                     Peacock
                 </label>
 
                 <label className="fub-option" htmlFor="fub-filter">
-                    <input type="checkbox" id="fub-filter" />
+                    <input type="checkbox" value={fubInfo} onChange={(e)=>{setFubInfo(e.target.checked)}} id="fub-filter" />
                     FuboTV
                 </label>
 

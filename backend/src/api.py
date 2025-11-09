@@ -142,13 +142,13 @@ async def movie_results(request: Request) -> list:
             selection['certification'] = 'Not rated in the US'
 
     
-    desired_keys = {'title', 'overview', 'genre_ids', 'poster_path', 'certification'}
-    filtered_selection = []
-    for old_dict in random_selection:
-        new_dict = dict()
-        for key, value in old_dict.items():
-            if key in desired_keys:
-                new_dict[key] = value
-        filtered_selection.append(new_dict)
+    # desired_keys = {'title', 'overview', 'genre_ids', 'poster_path', 'certification'}
+    # filtered_selection = []
+    # for old_dict in random_selection:
+    #     new_dict = dict()
+    #     for key, value in old_dict.items():
+    #         if key in desired_keys:
+    #             new_dict[key] = value
+    #     filtered_selection.append(new_dict)
 
-    return filtered_selection
+    return random_selection
